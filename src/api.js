@@ -32,7 +32,7 @@
             new Fingerprint2().get(function(result, components){
                 HORN.Http.Get(host+"/user/id", {fp:result}, function(j) {
                     j = JSON.parse(j);
-                    if(j.code == "0000") {
+                    if(j.code === 0) {
                         Cookies.set("horn-uid", j.uid);
                         cb(j.uid);
                     } else {

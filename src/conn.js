@@ -33,7 +33,7 @@
         HORN.Http.Get(url, {uid: this.uid}, function(json) {
             json = JSON.parse(json);
             _this.trigEvent("connected", json);
-            if(json.code != "0000") {
+            if(json.code !== 0) {
                 console.error(json.error);
                 return;
             }
