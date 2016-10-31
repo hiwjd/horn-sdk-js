@@ -9,19 +9,48 @@
 
     HORN.API = {};
 
-    HORN.API.JoinChat = function(chatID, uids, cb, cberr) {
+    HORN.API.RequestChat = function(uids, cb, cberr) {
         initCfg();
-        if(!uids) {
-            uids = [];
-        }
-        uids.push(cfg.UID());
-        var data = $.param({chat_id:chatID, uids:uids}, true)
-        HORN.Http.Post(cfg.Host()+"/chat/join", data, cb, cberr);
+        var msg = {
+            "type": "request_chat",
+            "from": {
+                "id": cfg.UID(),
+                "name": ""
+            },
+            "event": {
+                "uids": uids
+            }
+        };
+        HORN.Http.Post(cfg.Host()+"/message", JSON.stringify(msg), cb, cberr);
+    }
+
+    HORN.API.JoinChat = function(chatID, cb, cberr) {
+        initCfg();
+        var msg = {
+            "type": "join_chat",
+            "from": {
+                "id": cfg.UID(),
+                "name": ""
+            },
+            "event": {
+                "chat": {
+                    "id": chatID
+                }
+            }
+        };
+        HORN.Http.Post(cfg.Host()+"/message", JSON.stringify(msg), cb, cberr);
     }
 
     HORN.API.SendMsg = function(chatID, msg, cb, cberr) {
         initCfg();
-        HORN.Http.Post(cfg.Host()+"/chat/msg?chat_id="+chatID+"&uid="+cfg.UID(), msg, cb, cberr);
+        msg.chat = {
+            id: chatID
+        };
+        msg.from = {
+            id: cfg.UID(),
+            name: ""
+        };
+        HORN.Http.Post(cfg.Host()+"/message", JSON.stringify(msg), cb, cberr);
     }
 
     HORN.API.Identity = function(host, cb, cberr) {
@@ -31,7 +60,7 @@
         } else {
             new Fingerprint2().get(function(result, components){
                 HORN.Http.Get(host+"/user/id", {fp:result}, function(j) {
-                    j = JSON.parse(j);
+                    //j = JSON.parse(j);
                     if(j.code === 0) {
                         Cookies.set("horn-uid", j.uid);
                         cb(j.uid);

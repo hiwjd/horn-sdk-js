@@ -11,7 +11,8 @@ module.exports = function (grunt) {
       },
       horn: {
         src: [
-            'src/zepto.min.js',
+            //'src/zepto.min.js',
+            'src/jquery-3.1.1.js',
             'src/cookies.js',
             'src/polyfill.js',
             'src/fingerprint2.min.js',
