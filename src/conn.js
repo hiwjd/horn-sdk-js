@@ -34,7 +34,7 @@
             //json = JSON.parse(json);
             _this.trigEvent("connected", json);
             if(json.code !== 0) {
-                console.error(json.error);
+                console.error(json.msg);
                 return;
             }
             
