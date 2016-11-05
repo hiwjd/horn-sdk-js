@@ -70,7 +70,7 @@
     ProtocolLongpolling.prototype.pull = function() {
         var _this = this;
         HORN.Http.Get(this.addr, {uid:this.uid, track_id:this.track_id}, function(json) {
-            json = JSON.parse(json);
+            //json = JSON.parse(json);
             if(json.code !== 0) {
                 console.error(json.error);
                 return;

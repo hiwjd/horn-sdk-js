@@ -10,6 +10,7 @@
         this.uid = args.uid;
         this.host = args.host;
         this.conn_type = args.conn_type || "longpolling";
+        this.role = args.role || "user";
     }
 
     Config.prototype.UID = function() {
@@ -22,6 +23,10 @@
 
     Config.prototype.ConnType = function() {
         return this.conn_type;
+    }
+
+    Config.prototype.Role = function() {
+        return this.role;
     }
 
     HORN.Config = Config;

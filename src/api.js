@@ -15,7 +15,8 @@
             "type": "request_chat",
             "from": {
                 "id": cfg.UID(),
-                "name": ""
+                "name": "",
+                "role": cfg.Role()
             },
             "event": {
                 "uids": uids
@@ -30,7 +31,8 @@
             "type": "join_chat",
             "from": {
                 "id": cfg.UID(),
-                "name": ""
+                "name": "",
+                "role": cfg.Role()
             },
             "event": {
                 "chat": {
@@ -48,7 +50,8 @@
         };
         msg.from = {
             id: cfg.UID(),
-            name: ""
+            name: "",
+            "role": cfg.Role()
         };
         HORN.Http.Post(cfg.Host()+"/message", JSON.stringify(msg), cb, cberr);
     }
