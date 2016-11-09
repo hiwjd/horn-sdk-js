@@ -56,22 +56,20 @@
         HORN.Http.Post(cfg.Host()+"/message", JSON.stringify(msg), cb, cberr);
     }
 
-    HORN.API.Identity = function(host, cb, cberr) {
+    HORN.API.Track = function(host, param, cb, cberr) {
         var uid = Cookies.get("horn-uid");
-        if(uid) {
-            cb(uid);
-        } else {
-            new Fingerprint2().get(function(result, components){
-                HORN.Http.Get(host+"/user/id", {fp:result}, function(j) {
-                    //j = JSON.parse(j);
-                    if(j.code === 0) {
-                        Cookies.set("horn-uid", j.uid);
-                        cb(j.uid);
-                    } else {
-                        cberr(j);
-                    }
-                }, cberr);
-            });
-        }
+        param = param || {};
+        param.uid = uid;
+        new Fingerprint2().get(function(result, components){
+            param.fp = result;
+            HORN.Http.Get(host+"/user/track", param, function(j) {
+                if(j.code === 0) {
+                    Cookies.set("horn-uid", j.uid);
+                    cb(j.uid);
+                } else {
+                    cberr(j);
+                }
+            }, cberr);
+        });
     }
 })(window, window.HORN);

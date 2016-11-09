@@ -6,6 +6,8 @@
         this.uid = config.UID();
         this.host = config.Host(); // 登录的地址
         this.type = config.ConnType(); // 与消息服务器的连接方式 longpolling:长轮询 websocket:websocket
+        this.track_id = config.TrackId();
+        this.fp = config.FP();
         this.mode = "auto";
         this.keep = 15; // 服务端没有消息消息时的等待时间,单位秒
         this.interval = 0; // 再次发起连接的间隔时间,单位秒,0表示收到响应后立即发起连接
@@ -22,27 +24,27 @@
         if(typeof this.events[eventName] == "object") {
             var context = this.events[eventName].context,
                 callback =  this.events[eventName].callback;
-            callback.call(context, args);
+            return callback.call(context, args);
         }
     }
 
     Connection.prototype.start = function() {
-        var url = this.host + "/user/track",
+        var url = this.host + "/state/init",
             _this = this;
             
-        HORN.Http.Get(url, {uid: this.uid}, function(json) {
-            //json = JSON.parse(json);
-            _this.trigEvent("connected", json);
+        HORN.Http.Get(url, {uid: this.uid, fp: this.fp, track_id: this.track_id}, function(json) {
             if(json.code !== 0) {
-                console.error(json.msg);
+                console.error(json);
                 return;
             }
-            
+
+            _this.trigEvent("init", json);
+
             var protocol = _this.supportProtocols[_this.type];
             var config = protocol.makeConfig({
                 addr: json.addr,
                 uid: _this.uid,
-                track_id: json.track_id
+                track_id: _this.track_id
             });
         
             _this.protocol = new protocol(config);

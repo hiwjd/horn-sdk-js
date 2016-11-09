@@ -3,6 +3,7 @@
 
     function Protocol() {
         this.events = {
+            "init": null,
             "connecting": null,
             "connected": null,
             "message": null,
