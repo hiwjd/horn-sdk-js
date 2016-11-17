@@ -44,6 +44,15 @@
         this.conn.onmessage = function(e) {
             _this.trigEvent("message", JSON.parse(e.data));
         }
+        this.conn.onopen = function(e) {
+            _this.trigEvent("connected", e);
+        }
+        this.conn.onerror = function(e) {
+            _this.trigEvent("error", e);
+        }
+        this.conn.onclose = function(e) {
+            //_this.trigEvent("error", e);
+        }
     }
     
     ProtocolWebsocket.makeConfig = function(cfg){

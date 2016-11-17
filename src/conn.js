@@ -6,7 +6,7 @@
         this.uid = config.UID();
         this.host = config.Host(); // 登录的地址
         this.type = config.ConnType(); // 与消息服务器的连接方式 longpolling:长轮询 websocket:websocket
-        this.track_id = config.TrackId();
+        this.track_id = config.TrackID();
         this.fp = config.FP();
         this.mode = "auto";
         this.keep = 15; // 服务端没有消息消息时的等待时间,单位秒
@@ -38,7 +38,7 @@
                 return;
             }
 
-            _this.trigEvent("init", json);
+            _this.trigEvent("restore", json);
 
             var protocol = _this.supportProtocols[_this.type];
             var config = protocol.makeConfig({

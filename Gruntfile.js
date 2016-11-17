@@ -17,13 +17,14 @@ module.exports = function (grunt) {
             'src/polyfill.js',
             'src/fingerprint2.min.js',
             'src/utils.js',
+            'src/config.js',
             'src/http.js',
             'src/protocol.js',
             'src/conn.js',
-            'src/horn.js',
-            'src/api.js'
+            'src/api.js',
+            'src/horn.js'
         ],
-        dest: '../../src/horn/bin/demo/assets/horn.js'
+        dest: '../horn-www/dst/horn.js'
       }
     },
     uglify: {
@@ -32,8 +33,8 @@ module.exports = function (grunt) {
         preserveComments: 'some'
       },
       chat: {
-        src: '../../src/horn/bin/demo/assets/horn.js',
-        dest: '../../src/horn/bin/demo/assets/horn.min.js'
+        src: '../horn-www/dst/horn.js',
+        dest: '../horn-www/dst/horn.min.js'
       }
     },
     watch: {
