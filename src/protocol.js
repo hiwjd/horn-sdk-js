@@ -19,7 +19,7 @@
         }
     }
     Protocol.prototype.trigEvent = function(eventName, args) {
-        if(typeof this.events[eventName] == "object") {
+        if(typeof this.events[eventName] == "object" && this.events[eventName] != null) {
             var context = this.events[eventName].context,
                 callback =  this.events[eventName].callback;
             callback.call(context, args);

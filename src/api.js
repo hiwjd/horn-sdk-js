@@ -107,6 +107,14 @@
         });
     }
 
+    API.prototype.GetOnlineStaffList = function(cb, cberr) {
+        HORN.Http.Get(this.cfg.Host()+"/staff/online", {cid: this.cfg.CID()}, cb, cberr);
+    }
+
+    API.prototype.GetOnlineUserList = function(cb, cberr) {
+        HORN.Http.Get(this.cfg.Host()+"/user/online", {cid: this.cfg.CID()}, cb, cberr);
+    }
+
     API.prototype.OnRestore = function(cb, ctx) {
         this.conn.on("restore", cb, ctx);
     }

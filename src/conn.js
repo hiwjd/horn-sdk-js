@@ -8,7 +8,7 @@
         this.type = config.ConnType(); // 与消息服务器的连接方式 longpolling:长轮询 websocket:websocket
         this.track_id = config.TrackID();
         this.fp = config.FP();
-        this.mode = "auto";
+        this.mode = config.ConnMode();
         this.keep = 15; // 服务端没有消息消息时的等待时间,单位秒
         this.interval = 0; // 再次发起连接的间隔时间,单位秒,0表示收到响应后立即发起连接
         this.urlMsg = ""; // 获取消息的地址
@@ -18,6 +18,14 @@
             "websocket": HORN.ProtocolWebsocket
         };
         this.events = {};
+
+        if(this.mode == "auto") {
+            if(typeof WebSocket != "undefined") {
+                this.type = "websocket";
+            } else {
+                this.type = "longpolling";
+            }
+        }
     }
 
     Connection.prototype.trigEvent = function(eventName, args) {
