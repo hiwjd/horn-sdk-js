@@ -84,7 +84,7 @@
             track_id: this.cfg.TrackID()
         };
         var _self = this;
-        HORN.Http.Get(this.cfg.Host()+"/ping", msg, function(res) {
+        HORN.Http.Get(this.cfg.Host()+"/heartbeat", msg, function(res) {
             var n = 0;
             if(res.code == 0) {
                 n = res.interval-3;
@@ -112,7 +112,7 @@
     }
 
     API.prototype.GetOnlineUserList = function(cb, cberr) {
-        HORN.Http.Get(this.cfg.Host()+"/user/online", {cid: this.cfg.CID()}, cb, cberr);
+        HORN.Http.Get(this.cfg.Host()+"/users/online", {cid: this.cfg.CID()}, cb, cberr);
     }
 
     API.prototype.OnRestore = function(cb, ctx) {

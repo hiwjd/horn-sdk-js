@@ -181,12 +181,12 @@
      * @param  {Function} cb    正确的回调
      * @param  {[type]}   cberr 出错的回调
      */
-    HORN.GetOnlineUserListfunction = function(cb, cberr) {
+    HORN.GetOnlineUserList = function(cb, cberr) {
         if(api == null) {
             throw new Error("HORN is not inited.");
         }
 
-        api.GetOnlineUserListfunction(cb, cberr);
+        api.GetOnlineUserList(cb, cberr);
     };
 
     HORN.StartHeartbeat = function(cberr) {
