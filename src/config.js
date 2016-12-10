@@ -1,21 +1,21 @@
 (function(exports, HORN){
 
     function Config(args) {
-        this.cid = ""; // 公司ID
+        this.oid = ""; // 组织ID
         this.uid = ""; // 访客／客服ID
         this.name = ""; // 名字
         this.host = ""; // 接口地址
         this.conn_type = "longpolling"; // 通信方式 longpolling或者websocket
         this.conn_mode = "auto"; // auto:自动选择通信方式 manual:手动指定，即使用conn_type
         this.role = "user"; // 用户角色 user:访客 staff:客服
-        this.track_id = ""; // 追踪ID 连接下发服务器也要用到
+        this.tid = ""; // 追踪ID 连接下发服务器也要用到
         this.fp = ""; // 指纹
 
         this.Refresh(args);
     }
 
-    Config.prototype.CID = function() {
-        return this.cid;
+    Config.prototype.OID = function() {
+        return this.oid;
     }
 
     Config.prototype.UID = function() {
@@ -43,7 +43,7 @@
     }
 
     Config.prototype.TrackID = function() {
-        return this.track_id;
+        return this.tid;
     }
 
     Config.prototype.FP = function() {
@@ -59,7 +59,7 @@
     }
 
     Config.prototype.check = function() {
-        if(this.cid == "" || this.uid == "" || this.host == "") {
+        if(this.oid == "" || this.uid == "" || this.host == "") {
             throw new Error("HORN.Config not well inited.");
         }
     }

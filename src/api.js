@@ -12,6 +12,7 @@
     API.prototype.RequestChat = function(uids, cb, cberr) {
         var msg = {
             "type": "request_chat",
+            "oid": this.cfg.OID(),
             "from": this._from(),
             "event": {
                 "uids": uids
@@ -23,10 +24,11 @@
     API.prototype.JoinChat = function(chatID, cb, cberr) {
         var msg = {
             "type": "join_chat",
+            "oid": this.cfg.OID(),
             "from": this._from(),
             "event": {
                 "chat": {
-                    "id": chatID
+                    "cid": chatID
                 }
             }
         };
@@ -40,10 +42,10 @@
     API.prototype.SendMsgText = function(chatID, text, cb, cberr) {
         var msg = {
             "type": "text",
-            "cid": this.cfg.CID(),
+            "oid": this.cfg.OID(),
             "from": this._from(),
             "chat": {
-                "id": chatID
+                "cid": chatID
             },
             "text": text
         };
@@ -53,10 +55,10 @@
     API.prototype.SendMsgFile = function(chatID, file, cb, cberr) {
         var msg = {
             "type": "file",
-            "cid": this.cfg.CID(),
+            "oid": this.cfg.OID(),
             "from": this._from(),
             "chat": {
-                "id": chatID
+                "cid": chatID
             },
             "file": file // {"name":"", "size":1, "src":""}
         };
@@ -66,10 +68,10 @@
     API.prototype.SendMsgImage = function(chatID, image, cb, cberr) {
         var msg = {
             "type": "image",
-            "cid": this.cfg.CID(),
+            "oid": this.cfg.OID(),
             "from": this._from(),
             "chat": {
-                "id": chatID
+                "cid": chatID
             },
             "image": image // {"src":"", "size":1, "width":1, "height":1}
         };
@@ -78,10 +80,10 @@
 
     API.prototype.StartHeartbeat = function(cberr) {
         var msg = {
-            cid: this.cfg.CID(),
+            oid: this.cfg.OID(),
             uid: this.cfg.UID(),
             fp: this.cfg.FP(),
-            track_id: this.cfg.TrackID()
+            tid: this.cfg.TrackID()
         };
         var _self = this;
         HORN.Http.Get(this.cfg.Host()+"/heartbeat", msg, function(res) {
@@ -108,11 +110,11 @@
     }
 
     API.prototype.GetOnlineStaffList = function(cb, cberr) {
-        HORN.Http.Get(this.cfg.Host()+"/staff/online", {cid: this.cfg.CID()}, cb, cberr);
+        HORN.Http.Get(this.cfg.Host()+"/staff/online", {oid: this.cfg.OID()}, cb, cberr);
     }
 
     API.prototype.GetOnlineUserList = function(cb, cberr) {
-        HORN.Http.Get(this.cfg.Host()+"/users/online", {cid: this.cfg.CID()}, cb, cberr);
+        HORN.Http.Get(this.cfg.Host()+"/users/online", {oid: this.cfg.OID()}, cb, cberr);
     }
 
     API.prototype.OnRestore = function(cb, ctx) {
@@ -133,7 +135,7 @@
 
     API.prototype._from = function() {
         return {
-            "id": this.cfg.UID(),
+            "uid": this.cfg.UID(),
             "name": this.cfg.Name(),
             "role": this.cfg.Role()
         };

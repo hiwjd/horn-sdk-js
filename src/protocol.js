@@ -31,7 +31,7 @@
         // 检查这个config是不是合法
         this.addr = "ws://"+config.addr+"/ws";
         this.uid = config.uid;
-        this.track_id = config.track_id;
+        this.tid = config.tid;
         this.conn = null;
         Protocol.call(this);
     }
@@ -40,7 +40,7 @@
     ProtocolWebsocket.prototype.start = function() {
         // 开始执行
         var _this = this;
-        this.conn = new WebSocket(this.addr+"?uid="+this.uid+"&track_id="+this.track_id);
+        this.conn = new WebSocket(this.addr+"?uid="+this.uid+"&tid="+this.tid);
         this.conn.onmessage = function(e) {
             _this.trigEvent("message", JSON.parse(e.data));
         }
@@ -59,7 +59,7 @@
         return {
             addr: cfg.addr,
             uid: cfg.uid,
-            track_id: cfg.track_id
+            tid: cfg.tid
         };
     }
 
@@ -68,7 +68,7 @@
         // 检查这个config是不是合法
         this.addr = "http://"+config.addr+"/pull";
         this.uid = config.uid;
-        this.track_id = config.track_id;
+        this.tid = config.tid;
         Protocol.call(this);
     }
     HORN.utils.extends(ProtocolLongpolling, Protocol);
@@ -79,7 +79,7 @@
     }
     ProtocolLongpolling.prototype.pull = function() {
         var _this = this;
-        HORN.Http.Get(this.addr, {uid:this.uid, track_id:this.track_id}, function(json) {
+        HORN.Http.Get(this.addr, {uid:this.uid, tid:this.tid}, function(json) {
             //json = JSON.parse(json);
             if(json.code !== 0) {
                 console.error(json.error);
@@ -95,7 +95,7 @@
         return {
             addr: cfg.addr,
             uid: cfg.uid,
-            track_id: cfg.track_id
+            tid: cfg.tid
         };
     }
 

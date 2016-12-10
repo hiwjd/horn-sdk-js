@@ -4,8 +4,8 @@
 
     // 接口地址
     HORN.HOST = "http://app.horn.com:9092/api";
-    // 公司ID
-    HORN.CID = "";
+    // 组织ID
+    HORN.OID = "";
 
     /**
      * 设置配置
@@ -14,7 +14,7 @@
      */
     HORN.Init = function(args) {
         args.host = HORN.HOST;
-        args.cid = HORN.CID;
+        args.oid = HORN.OID;
         var cfg = new HORN.Config(args);
         api = HORN.API.InitFromConfig(cfg);
 
@@ -40,11 +40,11 @@
      * @param {[type]}   cberr 出错的回调
      */
     HORN.Track = function(cb, cberr) {
-        var uid = Cookies.get("horn-uid"),
+        var vid = Cookies.get("horn-vid"),
             host = HORN.HOST,
             param = {
-                cid: HORN.CID,
-                uid: uid,
+                oid: HORN.OID,
+                vid: vid,
                 url: window.location.href,
                 title: window.document.title,
                 referer: window.document.referrer,
@@ -56,7 +56,7 @@
             param.fp = result;
             HORN.Http.Get(host+"/user/track", param, function(j) {
                 if(j.code === 0) {
-                    Cookies.set("horn-uid", j.uid);
+                    Cookies.set("horn-vid", j.vid);
                     cb(j);
                 } else {
                     cberr(j);

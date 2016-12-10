@@ -6,7 +6,7 @@
         this.uid = config.UID();
         this.host = config.Host(); // 登录的地址
         this.type = config.ConnType(); // 与消息服务器的连接方式 longpolling:长轮询 websocket:websocket
-        this.track_id = config.TrackID();
+        this.tid = config.TrackID();
         this.fp = config.FP();
         this.mode = config.ConnMode();
         this.keep = 15; // 服务端没有消息消息时的等待时间,单位秒
@@ -40,7 +40,7 @@
         var url = this.host + "/state/init",
             _this = this;
             
-        HORN.Http.Get(url, {uid: this.uid, fp: this.fp, track_id: this.track_id}, function(json) {
+        HORN.Http.Get(url, {uid: this.uid, fp: this.fp, tid: this.tid}, function(json) {
             if(json.code !== 0) {
                 console.error(json);
                 return;
@@ -52,7 +52,7 @@
             var config = protocol.makeConfig({
                 addr: json.addr,
                 uid: _this.uid,
-                track_id: _this.track_id
+                tid: _this.tid
             });
         
             _this.protocol = new protocol(config);
