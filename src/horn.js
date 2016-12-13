@@ -80,17 +80,44 @@
     /**************************************************************************/
 
     /**
-     * 请求对话
-     * @param {[type]}   uids  请求参与对话的用户ID数组，不用包含自己
-     * @param {Function} cb    正确的回调
-     * @param {[type]}   cberr 出错的回调
+     * 发起对话
+     * @param {[type]}   chat  对话对象{oid:"组织ID", sid:"客服ID", vid:"访客ID", tid:"访问ID"}
+     * @param {Function} cb    正确回调
+     * @param {[type]}   cberr 错误回调
      */
-    HORN.RequestChat = function(uids, cb, cberr) {
+    HORN.RequestChat = function(chat, cb, cberr) {
         if(api == null) {
             throw new Error("HORN is not inited.");
         }
-        api.RequestChat(uids, cb, cberr);
+        api.RequestChat(chat, cb, cberr);
     };
+
+    /**
+     * 客服邀请访客对话
+     * @param {[type]}   vid   访客ID
+     * @param {[type]}   tid   访客访问ID
+     * @param {Function} cb    正确回调
+     * @param {[type]}   cberr 错误回调
+     */
+    HORN.InviteVisitorChat = function(vid, tid, cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+        api.InviteVisitorChat(vid, tid, cb, cberr);
+    }
+
+    /**
+     * 访客请求客服对话
+     * @param {[type]}   sid   客服ID
+     * @param {Function} cb    正确回调
+     * @param {[type]}   cberr 错误回调
+     */
+    HORN.RequestStaffChat = function(sid, cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+        api.RequestStaffChat(sid, cb, cberr);
+    }
 
     /**
      * 加入对话

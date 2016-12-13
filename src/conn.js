@@ -6,7 +6,7 @@
         this.uid = config.UID();
         this.host = config.Host(); // 登录的地址
         this.type = config.ConnType(); // 与消息服务器的连接方式 longpolling:长轮询 websocket:websocket
-        this.tid = config.TrackID();
+        this.tid = config.TID();
         this.fp = config.FP();
         this.mode = config.ConnMode();
         this.keep = 15; // 服务端没有消息消息时的等待时间,单位秒
@@ -71,7 +71,7 @@
         });
     }
 
-    // 需要在Login之前调用
+    // 需要在start之前调用
     Connection.prototype.on = function(eventName, callback, context) {
         this.events[eventName] = {
             callback: callback,

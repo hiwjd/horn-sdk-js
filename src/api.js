@@ -9,81 +9,165 @@
         this.conn = new HORN.Connection(config);
     }
 
-    API.prototype.RequestChat = function(uids, cb, cberr) {
+    /**
+     * 发送消息，这里的消息不止是对话的消息，包括和服务端交互的各种消息
+     * 目前有：文本消息，图片消息，文件消息，发起对话，加入对话
+     * @param {[type]}   msg   消息对象，具体的格式可以参见下方各消息体
+     * @param {Function} cb    正确回调
+     * @param {[type]}   cberr 错误回调
+     */
+    API.prototype.SendMsg = function(msg, cb, cberr) {
+        HORN.Http.Post(this.cfg.Host()+"/message", JSON.stringify(msg), cb, cberr);
+    }
+
+    /**
+     * 客服邀请访客对话
+     * @param {[type]}   vid   访客ID
+     * @param {[type]}   tid   访客访问ID
+     * @param {Function} cb    正确回调
+     * @param {[type]}   cberr 错误回调
+     */
+    API.prototype.InviteVisitorChat = function(vid, tid, cb, cberr) {
+        if(!this.cfg.IsStaff()) {
+            throw new Error("only staff can invite visitor chat");
+        }
+
+        var chat = {
+            oid: this.cfg.OID(),
+            sid: this.cfg.UID(),
+            vid: vid,
+            tid: tid
+        };
+
+        this.RequestChat(chat, cb, cberr);
+    }
+
+    /**
+     * 访客请求客服对话
+     * @param {[type]}   sid   客服ID
+     * @param {Function} cb    正确回调
+     * @param {[type]}   cberr 错误回调
+     */
+    API.prototype.RequestStaffChat = function(sid, cb, cberr) {
+        if(!this.cfg.IsVisitor()) {
+            throw new Error("only visitor can request staff chat");
+        }
+
+        var chat = {
+            oid: this.cfg.OID(),
+            vid: this.cfg.UID(),
+            tid: this.cfg.TID(),
+            sid: sid
+        };
+
+        this.RequestChat(chat, cb, cberr);
+    }
+
+    /**
+     * 发起对话
+     * @param {[type]}   chat  对话对象{oid:"组织ID", sid:"客服ID", vid:"访客ID", tid:"访问ID"}
+     * @param {Function} cb    正确回调
+     * @param {[type]}   cberr 错误回调
+     */
+    API.prototype.RequestChat = function(chat, cb, cberr) {
         var msg = {
             "type": "request_chat",
             "oid": this.cfg.OID(),
             "from": this._from(),
             "event": {
-                "uids": uids
+                "chat": chat
             }
         };
-        HORN.Http.Post(this.cfg.Host()+"/message", JSON.stringify(msg), cb, cberr);
+
+        this.SendMsg(msg, cb, cberr);
     }
 
+    /**
+     * 加入对话
+     * @param {[type]}   chatID 对话ID
+     * @param {Function} cb     正确回调
+     * @param {[type]}   cberr  错误回调
+     */
     API.prototype.JoinChat = function(chatID, cb, cberr) {
         var msg = {
             "type": "join_chat",
             "oid": this.cfg.OID(),
             "from": this._from(),
             "event": {
-                "chat": {
-                    "cid": chatID
-                }
+                "cid": chatID
             }
         };
-        HORN.Http.Post(this.cfg.Host()+"/message", JSON.stringify(msg), cb, cberr);
+
+        this.SendMsg(msg, cb, cberr);
     }
 
-    API.prototype.SendMsg = function(msg, cb, cberr) {
-        HORN.Http.Post(this.cfg.Host()+"/message", JSON.stringify(msg), cb, cberr);
-    }
-
+    /**
+     * 文本消息
+     * @param {[type]}   chatID 对话ID
+     * @param {[type]}   text   消息内容
+     * @param {Function} cb     正确回调
+     * @param {[type]}   cberr  错误回调
+     */
     API.prototype.SendMsgText = function(chatID, text, cb, cberr) {
         var msg = {
             "type": "text",
             "oid": this.cfg.OID(),
             "from": this._from(),
-            "chat": {
-                "cid": chatID
-            },
+            "cid": chatID,
             "text": text
         };
+
         this.SendMsg(msg, cb, cberr);
     }
 
+    /**
+     * 文件消息
+     * @param {[type]}   chatID 对话ID
+     * @param {[type]}   file   文件对象 {"name":"文件名", "size":文件大小, "src":"文件地址"}
+     * @param {Function} cb     正确回调
+     * @param {[type]}   cberr  错误回调
+     */
     API.prototype.SendMsgFile = function(chatID, file, cb, cberr) {
         var msg = {
             "type": "file",
             "oid": this.cfg.OID(),
             "from": this._from(),
-            "chat": {
-                "cid": chatID
-            },
-            "file": file // {"name":"", "size":1, "src":""}
+            "cid": chatID,
+            "file": file
         };
+
         this.SendMsg(msg, cb, cberr);
     }
 
+    /**
+     * 图片消息
+     * @param {[type]}   chatID 对话ID
+     * @param {[type]}   image  图片对象 {"src":"图片地址", "size":图片大小, "width":图片宽度, "height":图片高度}
+     * @param {Function} cb     正确回调
+     * @param {[type]}   cberr  错误回调
+     */
     API.prototype.SendMsgImage = function(chatID, image, cb, cberr) {
         var msg = {
             "type": "image",
             "oid": this.cfg.OID(),
             "from": this._from(),
-            "chat": {
-                "cid": chatID
-            },
-            "image": image // {"src":"", "size":1, "width":1, "height":1}
+            "cid": chatID,
+            "image": image
         };
+
         this.SendMsg(msg, cb, cberr);
     }
 
+    /**
+     * 心跳
+     * @param {[type]} cberr [description]
+     */
     API.prototype.StartHeartbeat = function(cberr) {
         var msg = {
             oid: this.cfg.OID(),
             uid: this.cfg.UID(),
             fp: this.cfg.FP(),
-            tid: this.cfg.TrackID()
+            tid: this.cfg.TID()
         };
         var _self = this;
         HORN.Http.Get(this.cfg.Host()+"/heartbeat", msg, function(res) {
@@ -135,9 +219,11 @@
 
     API.prototype._from = function() {
         return {
+            "oid": this.cfg.OID(),
             "uid": this.cfg.UID(),
             "name": this.cfg.Name(),
-            "role": this.cfg.Role()
+            "role": this.cfg.Role(),
+            "tid": this.cfg.TID()
         };
     }
 

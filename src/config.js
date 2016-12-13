@@ -1,17 +1,17 @@
 (function(exports, HORN){
 
     function Config(args) {
-        this.oid = ""; // 组织ID
+        this.oid = 0; // 组织ID
         this.uid = ""; // 访客／客服ID
         this.name = ""; // 名字
         this.host = ""; // 接口地址
         this.conn_type = "longpolling"; // 通信方式 longpolling或者websocket
         this.conn_mode = "auto"; // auto:自动选择通信方式 manual:手动指定，即使用conn_type
-        this.role = "user"; // 用户角色 user:访客 staff:客服
+        this.role = "visitor"; // 用户角色 visitor:访客 staff:客服
         this.tid = ""; // 追踪ID 连接下发服务器也要用到
         this.fp = ""; // 指纹
 
-        this.Refresh(args);
+        this.ApplyArgs(args);
     }
 
     Config.prototype.OID = function() {
@@ -42,7 +42,7 @@
         return this.role;
     }
 
-    Config.prototype.TrackID = function() {
+    Config.prototype.TID = function() {
         return this.tid;
     }
 
@@ -50,12 +50,36 @@
         return this.fp;
     }
 
-    Config.prototype.Refresh = function(args) {
+    Config.prototype.ApplyArgs = function(args) {
         for(var key in args) {
             if(args.hasOwnProperty(key)) {
                 this[key] = args[key];
             }
         }
+
+        if(this.oid == 0 || this.oid == "") {
+            throw new Error("oid is not well inited.");
+        }
+        if(this.uid == 0 || this.uid == "") {
+            throw new Error("uid is not well inited.");
+        }
+        if(this.host == 0 || this.host == "") {
+            throw new Error("host is not well inited.");
+        }
+
+        if(this.IsVisitor()) {
+            if(this.tid == 0 || this.tid == "") {
+                throw new Error("tid is not well inited.");
+            }
+        }
+    }
+
+    Config.prototype.IsStaff = function() {
+        return this.role == 'staff';
+    }
+
+    Config.prototype.IsVisitor = function() {
+        return this.role == 'visitor';
     }
 
     Config.prototype.check = function() {

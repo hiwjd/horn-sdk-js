@@ -37,6 +37,14 @@ module.exports = function (grunt) {
         dest: '../horn-www/dst/horn.min.js'
       }
     },
+    copy: {
+      main: {
+        files: [
+          // includes files within path
+          {expand: false, src: ['../horn-www/dst/horn.js'], dest: '../horn-app/public/horn.js', filter: 'isFile'},
+        ],
+      },
+    },
     watch: {
         files: ['src/*.js', 'src/**/*.js', 'vender/*.js'],
         tasks: ['default']
@@ -45,6 +53,7 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.registerTask('default', ['concat', 'uglify']);
+  grunt.registerTask('default', ['concat', 'uglify', 'copy']);
 }
