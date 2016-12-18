@@ -110,10 +110,10 @@ if (!String.prototype.format) {
                         ss:   pad(s),
                         l:    pad(L, 3),
                         L:    pad(L > 99 ? Math.round(L / 10) : L),
-                        t:    H < 12 ? "a"  : "p",
-                        tt:   H < 12 ? "am" : "pm",
-                        T:    H < 12 ? "A"  : "P",
-                        TT:   H < 12 ? "AM" : "PM",
+                        t:    H < 12 ? dF.i18n.a  : dF.i18n.p,
+                        tt:   H < 12 ? dF.i18n.am : dF.i18n.pm,
+                        T:    H < 12 ? dF.i18n.A  : dF.i18n.P,
+                        TT:   H < 12 ? dF.i18n.AM : dF.i18n.PM,
                         Z:    utc ? "UTC" : (String(date).match(timezone) || [""]).pop().replace(timezoneClip, ""),
                         o:    (o > 0 ? "-" : "+") + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
                         S:    ["th", "st", "nd", "rd"][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10]
@@ -150,7 +150,15 @@ if (!String.prototype.format) {
             monthNames: [
                 "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
                 "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
-            ]
+            ],
+            AM: "上午",
+            PM: "下午",
+            am: "上午",
+            pm: "下午",
+            A: "上午",
+            P: "下午",
+            a: "上午",
+            p: "下午"
         };
 
         // For convenience...
