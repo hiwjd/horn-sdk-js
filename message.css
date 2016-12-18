@@ -1,0 +1,83 @@
+.horn-box {
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    width: 250px;
+    position: fixed;
+    right: 30px;
+    bottom: -298px;
+}
+.horn-chat {
+    border: 1px solid #20A0FF;
+    border-bottom: 0;
+}
+.horn-head {
+    height: 30px;
+    border-bottom: 1px solid #eee;
+    background: #20A0FF;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+}
+.horn-body {
+    height: 200px;
+    overflow: auto;
+}
+.horn-foot {
+    height: 50px;
+    border-top: 1px solid #eee;
+    padding: 10px;
+    border-bottom: 1px solid #cbcbcb;
+}
+.horn-foot textarea {
+    border: none;
+    resize: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+}
+.horn-copyright {
+    padding: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    background: #efefef;
+    text-align: center;
+    color: #ccc;
+}
+#horn-content {
+    padding: 10px;
+    font-size: 12px;
+}
+
+.horn-message {
+    font-size: 12px;
+    margin-bottom: 15px;
+    display: inline-block;
+    width: 100%;
+}
+.horn-message .horn-m-from {
+    color: gray;
+    margin-bottom: 5px;
+}
+.horn-message .horn-m-text {
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 3px;
+    display: inline-block;
+    max-width: 50%;
+    word-wrap: break-word;
+    word-break: break-word;
+    background-color: #efefef;
+}
+.horn-message .horn-m-from .horn-m-time {
+    margin-left: 10px;
+}
+.horn-me .horn-m-text {
+  float: right;
+}
+.horn-me .horn-m-from .horn-m-time {
+  float: right;
+}
+.horn-me .horn-m-from .horn-m-name {
+  visibility: hidden;
+}
