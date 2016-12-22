@@ -1,16 +1,10 @@
 (function(exports, HORN){
     function insertStyle() {
-        //debugger;
         var 
             j = document.createElement("style"),
             s = document.getElementsByTagName("head")[0];
-        //j.async = true;
-        //j.rel = "stylesheet";
-        //j.charset = 'UTF-8';
         j.type = "text/css";
-        //j.href = "//www.horn.com:9092/dst/message.css";
-        //s.insertBefore(j, s);
-        j.innerHTML = ".horn-copyright,.horn-head{font-size:14px;text-align:center}.horn-box{box-shadow:0 1px 1px rgba(0,0,0,.05);width:250px;position:fixed;right:30px;bottom:-298px}.horn-chat{border:1px solid #20A0FF;border-bottom:0}.horn-head{height:30px;border-bottom:1px solid #eee;background:#20A0FF;color:#fff;line-height:30px;cursor:pointer}.horn-body{height:200px;overflow:auto}.horn-foot{height:50px;border-top:1px solid #eee;padding:10px;border-bottom:1px solid #cbcbcb}.horn-foot textarea{border:none;resize:none;outline:0;width:100%;height:100%}.horn-copyright{padding:5px;font-weight:700;background:#efefef;color:#ccc}#horn-content{padding:10px;font-size:12px}.horn-message{font-size:12px;margin-bottom:15px;display:inline-block;width:100%}.horn-message .horn-m-from{color:gray;margin-bottom:5px}.horn-message .horn-m-text{border:1px solid #eee;padding:10px;border-radius:3px;display:inline-block;max-width:50%;word-wrap:break-word;word-break:break-word;background-color:#efefef}.horn-message .horn-m-from .horn-m-time{margin-left:10px}.horn-me .horn-m-from .horn-m-time,.horn-me .horn-m-text{float:right}.horn-me .horn-m-from .horn-m-name{visibility:hidden}";
+        j.innerHTML = ".horn-copyright,.horn-head{font-size:14px;text-align:center}.horn-box{box-shadow:0 1px 1px rgba(0,0,0,.05);width:250px;position:fixed;right:30px;bottom:-298px;z-index:9999}.horn-chat{border:1px solid #20A0FF;border-bottom:0;border-radius:5px 5px 0 0;background:#fff}.horn-head{height:30px;border-bottom:1px solid #eee;background:#20A0FF;color:#fff;line-height:30px;cursor:pointer}.horn-body{height:200px;overflow:auto}.horn-foot{height:50px;border-top:1px solid #eee;padding:10px;border-bottom:1px solid #cbcbcb}.horn-foot textarea{border:none;resize:none;outline:0;width:100%;height:100%}.horn-copyright{padding:5px;font-weight:700;background:#efefef;color:#ccc}#horn-content{padding:10px;font-size:12px}.horn-message{font-size:12px;margin-bottom:15px;display:inline-block;width:100%}.horn-message .horn-m-from{color:gray;margin-bottom:5px}.horn-message .horn-m-text{border:1px solid #eee;padding:10px;border-radius:3px;display:inline-block;max-width:50%;word-wrap:break-word;word-break:break-word;background-color:#efefef}.horn-message .horn-m-from .horn-m-time{margin-left:10px}.horn-me .horn-m-from .horn-m-time,.horn-me .horn-m-text{float:right}.horn-me .horn-m-from .horn-m-name{visibility:hidden}";
         s.appendChild(j);
     }
 
@@ -24,7 +18,7 @@
     HORN.HOST = "http://app.horn.com:9092/api";
     //HORN.OID = 3;
 
-    var settings = exports["_HORN"].a;
+    var settings = exports["_HORN"].s;
     for(var i=0; i<settings.length; i++) {
         var item = settings[i];
         switch(item[0]) {
@@ -160,7 +154,7 @@
     var bottom = "0";
     $(".horn-head").click(function() {
         $(".horn-box").animate({bottom:bottom}, 300, function() {
-            bottom = bottom=="0"?"-298px":"0";
+            bottom = bottom=="0"?"-299px":"0";
             console.log("aaabb");
         });
     });

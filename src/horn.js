@@ -216,6 +216,38 @@
         api.GetOnlineUserList(cb, cberr);
     };
 
+    HORN.GetTags = function(cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+
+        api.GetTags(cb, cberr);
+    };
+
+    HORN.GetTagsByVid = function(vid, cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+
+        api.GetTagsByVid(vid, cb, cberr);
+    };
+
+    HORN.AttachTag = function(vid, tagId, cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+
+        api.AttachTag(vid, tagId, cb, cberr);
+    };
+
+    HORN.DetachTag = function(vid, tagId, cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+
+        api.DetachTag(vid, tagId, cb, cberr);
+    };
+
     HORN.StartHeartbeat = function(cberr) {
         api.StartHeartbeat(cberr);
     };

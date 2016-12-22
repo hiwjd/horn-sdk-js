@@ -198,7 +198,33 @@
     }
 
     API.prototype.GetOnlineUserList = function(cb, cberr) {
-        HORN.Http.Get(this.cfg.Host()+"/users/online", {oid: this.cfg.OID()}, cb, cberr);
+        HORN.Http.Get(this.cfg.Host()+"/b/users/online", {oid: this.cfg.OID()}, cb, cberr);
+    }
+
+    API.prototype.GetTags = function(cb, cberr) {
+        HORN.Http.Get(this.cfg.Host()+"/b/tags", {oid: this.cfg.OID()}, cb, cberr);
+    }
+
+    API.prototype.GetTagsByVid = function(vid, cb, cberr) {
+        HORN.Http.Get(this.cfg.Host()+"/b/visitor/tags", {oid: this.cfg.OID(), vid: vid}, cb, cberr);
+    }
+
+    API.prototype.AttachTag = function(vid, tagId, cb, cberr) {
+        var data = {
+            oid: this.cfg.OID(), 
+            vid: vid, 
+            tag_id: tagId
+        };
+        HORN.Http.Post(this.cfg.Host()+"/b/tag/attach", data, cb, cberr);
+    }
+
+    API.prototype.DetachTag = function(vid, tagId, cb, cberr) {
+        var data = {
+            oid: this.cfg.OID(), 
+            vid: vid, 
+            tag_id: tagId
+        };
+        HORN.Http.Post(this.cfg.Host()+"/b/tag/detach", data, cb, cberr);
     }
 
     API.prototype.OnRestore = function(cb, ctx) {

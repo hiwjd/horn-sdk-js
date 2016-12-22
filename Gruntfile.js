@@ -65,7 +65,7 @@ module.exports = function (grunt) {
       },
       target: {
         files: {
-          'dst/output.css': ['message.css']
+          'dst/message.min.css': ['src/message.css']
         }
       }
     },
@@ -78,8 +78,14 @@ module.exports = function (grunt) {
       },
     },
     watch: {
-        files: ['src/*.js', 'src/**/*.js', 'vender/*.js'],
-        tasks: ['default']
+        scripts: {
+          files: ['src/*.js', 'src/**/*.js', 'vender/*.js'],
+          tasks: ['default']
+        },
+        css: {
+          files: ['src/*.css'],
+          tasks: ['mincss']
+        }
     }
   });
 
@@ -89,4 +95,5 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.registerTask('default', ['concat', 'uglify', 'copy']);
+  grunt.registerTask('mincss', ['cssmin']);
 }
