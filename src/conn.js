@@ -3,6 +3,7 @@
         if(!(config instanceof HORN.Config)) {
             throw new Error("param config is not HORN.Config");
         }
+        this.oid = config.OID();
         this.uid = config.UID();
         this.host = config.Host(); // 登录的地址
         this.type = config.ConnType(); // 与消息服务器的连接方式 longpolling:长轮询 websocket:websocket
@@ -40,7 +41,7 @@
         var url = this.host + "/state/init",
             _this = this;
             
-        HORN.Http.Get(url, {uid: this.uid, fp: this.fp, tid: this.tid}, function(json) {
+        HORN.Http.Get(url, {oid: this.oid, uid: this.uid, fp: this.fp, tid: this.tid}, function(json) {
             if(json.code !== 0) {
                 console.error(json);
                 return;

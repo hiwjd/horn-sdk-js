@@ -44,7 +44,7 @@
 
     /**
      * 访客请求客服对话
-     * @param {[type]}   sid   客服ID
+     * @param {[type]}   sid   客服ID 或者 以#开头的分组ID
      * @param {Function} cb    正确回调
      * @param {[type]}   cberr 错误回调
      */

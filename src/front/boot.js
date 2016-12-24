@@ -11,9 +11,10 @@
     insertStyle();
 
     var front = {
-        sid: "Hrr30lzGG7sEG7Sy8lQ",
-        uid: "",
-        cid: ""
+        sid: "", // 客服ID
+        uid: "", // 访客ID
+        cid: "", // 对话ID
+        gid: "" // 客服分组ID 如果指定了客服ID(sid)，则以sid优先
     };
     HORN.HOST = "http://app.horn.com:9092/api";
     //HORN.OID = 3;
@@ -27,6 +28,9 @@
             break;
             case 'sid':
                 front.sid = item[1];
+            break;
+            case 'gid':
+                front.gid = item[1];
             break;
         }
     }
@@ -77,7 +81,9 @@
         }
 
         if(front.cid == "") {
-            HORN.RequestStaffChat(front.sid, function(j) {
+            // sid是客服ID或者以#开头的分组ID
+            var sid = front.sid == "" ? "#"+front.gid : front.sid;
+            HORN.RequestStaffChat(sid, function(j) {
                 console.log(j);
                 front.cid = j.cid;
             }, function(j) {
@@ -102,6 +108,7 @@
     HORN.Track(function(res) {
         front.uid = res.vid;
         HORN.Init({
+            oid: HORN.OID,
             uid: res.vid,
             tid: res.tid,
             fp: res.fp,
