@@ -288,6 +288,14 @@
         api.EditPass(sid, pwd, cb, cberr);
     };
 
+    HORN.UpdateVisitorInfo = function(vid, data, cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+
+        api.UpdateVisitorInfo(vid, data, cb, cberr);
+    };
+
     HORN.StartHeartbeat = function(cberr) {
         api.StartHeartbeat(cberr);
     };

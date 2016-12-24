@@ -275,6 +275,14 @@
         HORN.Http.Post(this.cfg.Host()+"/b/staff/editpwd", data, cb, cberr);
     }
 
+    API.prototype.UpdateVisitorInfo = function(vid, info, cb, cberr) {
+        var data = info;
+        data.oid = this.cfg.OID();
+        data.vid = vid;
+
+        HORN.Http.Post(this.cfg.Host()+"/b/visitor/edit", data, cb, cberr);
+    }
+
     API.prototype.OnRestore = function(cb, ctx) {
         this.conn.on("restore", cb, ctx);
     }
