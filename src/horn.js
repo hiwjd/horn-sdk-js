@@ -248,6 +248,46 @@
         api.DetachTag(vid, tagId, cb, cberr);
     };
 
+    HORN.SaveTag = function(tagId, name, color, cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+
+        api.SaveTag(tagId, name, color, cb, cberr);
+    };
+
+    HORN.DeleteTag = function(tagId, cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+
+        api.DeleteTag(tagId, cb, cberr);
+    };
+
+    HORN.SaveStaff = function(staff, cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+
+        api.SaveStaff(staff, cb, cberr);
+    };
+
+    HORN.FetchStaffs = function(condition, cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+
+        api.FetchStaffs(condition, cb, cberr);
+    };
+
+    HORN.EditPass = function(sid, pwd, cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+
+        api.EditPass(sid, pwd, cb, cberr);
+    };
+
     HORN.StartHeartbeat = function(cberr) {
         api.StartHeartbeat(cberr);
     };

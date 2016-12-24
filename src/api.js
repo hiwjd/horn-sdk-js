@@ -227,6 +227,54 @@
         HORN.Http.Post(this.cfg.Host()+"/b/tag/detach", data, cb, cberr);
     }
 
+    API.prototype.SaveTag = function(tagId, name, color, cb, cberr) {
+        var data = {
+            oid: this.cfg.OID(), 
+            tag_id: tagId,
+            name: name,
+            color: color
+        };
+        HORN.Http.Post(this.cfg.Host()+"/b/tag/save", data, cb, cberr);
+    }
+
+    API.prototype.DeleteTag = function(tagId, cb, cberr) {
+        var data = {
+            oid: this.cfg.OID(), 
+            tag_id: tagId
+        };
+        HORN.Http.Post(this.cfg.Host()+"/b/tag/delete", data, cb, cberr);
+    }
+
+    API.prototype.SaveStaff = function(staff, cb, cberr) {
+        staff.oid = this.cfg.OID();
+        HORN.Http.Post(this.cfg.Host()+"/b/staff/save", staff, cb, cberr);
+    }
+
+    API.prototype.FetchStaffs = function(condition, cb, cberr) {
+        if(typeof condition != "object") {
+            condition = {};
+        }
+        if(typeof condition.page == "undefined") {
+            condition.page = 1;
+        }
+        if(typeof condition.size == "undefined") {
+            condition.size = 15;
+        }
+        condition.oid = this.cfg.OID();
+
+        HORN.Http.Get(this.cfg.Host()+"/b/staffs", condition, cb, cberr);
+    }
+
+    API.prototype.EditPass = function(sid, pwd, cb, cberr) {
+        var data = {
+            oid: this.cfg.OID(),
+            sid: sid,
+            pwd: pwd
+        };
+
+        HORN.Http.Post(this.cfg.Host()+"/b/staff/editpwd", data, cb, cberr);
+    }
+
     API.prototype.OnRestore = function(cb, ctx) {
         this.conn.on("restore", cb, ctx);
     }
