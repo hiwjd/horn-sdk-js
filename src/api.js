@@ -283,6 +283,24 @@
         HORN.Http.Post(this.cfg.Host()+"/b/visitor/edit", data, cb, cberr);
     }
 
+    API.prototype.FetchGroups = function(cb, cberr) {
+        var data = {
+            oid: this.cfg.OID()
+        };
+
+        HORN.Http.Get(this.cfg.Host()+"/b/groups", data, cb, cberr);
+    }
+
+    API.prototype.SaveGroup = function(gid, name, cb, cberr) {
+        var data = {
+            oid: this.cfg.OID(),
+            gid: gid,
+            name: name
+        };
+
+        HORN.Http.Post(this.cfg.Host()+"/b/group/save", data, cb, cberr);
+    }
+
     API.prototype.OnRestore = function(cb, ctx) {
         this.conn.on("restore", cb, ctx);
     }

@@ -296,6 +296,22 @@
         api.UpdateVisitorInfo(vid, data, cb, cberr);
     };
 
+    HORN.FetchGroups = function(cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+
+        api.FetchGroups(cb, cberr);
+    };
+
+    HORN.SaveGroup = function(gid, name, cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+
+        api.SaveGroup(gid, name, cb, cberr);
+    };
+
     HORN.StartHeartbeat = function(cberr) {
         api.StartHeartbeat(cberr);
     };
