@@ -312,6 +312,22 @@
         api.SaveGroup(gid, name, cb, cberr);
     };
 
+    HORN.FetchChats = function(cond, cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+
+        api.FetchChats(cond, cb, cberr);
+    };
+
+    HORN.FetchChat = function(cid, cb, cberr) {
+        if(api == null) {
+            throw new Error("HORN is not inited.");
+        }
+
+        api.FetchChat(cid, cb, cberr);
+    };
+
     HORN.StartHeartbeat = function(cberr) {
         api.StartHeartbeat(cberr);
     };
