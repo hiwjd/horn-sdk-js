@@ -53,10 +53,10 @@
                 _i('<div class="horn-message horn-text'+isMeClass+'"><div class="horn-m-from"><span class="horn-m-name">'+m.from.name+'</span><span class="horn-m-time">'+time+'</span></div><div class="horn-m-text">'+m.text+'</div></div>');
             break;
             case "image":
-                _i("<div class=\"horn-message horn-message-image\">"+m.from.name+"发送了图片: "+m.image.src+"</div>");
+                _i('<div class="horn-message horn-text'+isMeClass+'"><div class="horn-m-from"><span class="horn-m-name">'+m.from.name+'</span><span class="horn-m-time">'+time+'</span></div><div class="horn-m-text"><img style="width:100%;" src="'+m.image.src+'" /></div></div>');
             break;
             case "file":
-                _i("<div class=\"horn-message horn-message-file\">"+m.from.name+"发送了文件: "+m.file.src+"</div>");
+                _i('<div class="horn-message horn-text'+isMeClass+'"><div class="horn-m-from"><span class="horn-m-name">'+m.from.name+'</span><span class="horn-m-time">'+time+'</span></div><div class="horn-m-text"><a target="_blank" href="'+m.file.src+'">'+m.file.name+'</a></div></div>');
             break;
             case "request_chat":
                 _i("<div class=\"horn-message horn-message-request-chat\">"+m.from.name+"请求对话</div>");
