@@ -29,7 +29,7 @@
     // websocket协议
     function ProtocolWebsocket(config) {
         // 检查这个config是不是合法
-        this.addr = "ws://"+config.addr+"/ws";
+        this.addr = "wss://"+config.addr+"/ws";
         this.uid = config.uid;
         this.tid = config.tid;
         this.conn = null;

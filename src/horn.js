@@ -3,7 +3,7 @@
         events = {};
 
     // 接口地址
-    HORN.HOST = "http://app.horn.com:9092/api";
+    HORN.HOST = "https://app.hiyueliao.com/api";
     // 组织ID
     HORN.OID = "";
 

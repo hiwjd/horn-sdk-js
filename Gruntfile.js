@@ -22,9 +22,11 @@ module.exports = function (grunt) {
             'src/protocol.js',
             'src/conn.js',
             'src/api.js',
-            'src/horn.js'
+            'src/horn.js',
+            'src/plupload.full.min.js',
+            'src/qiniu.min.js'
         ],
-        dest: '../horn-www/dst/horn.js'
+        dest: 'dst/horn.js'
       },
       front: {
         src: [
@@ -39,9 +41,11 @@ module.exports = function (grunt) {
             'src/conn.js',
             'src/api.js',
             'src/horn.js',
+            'src/plupload.full.min.js',
+            'src/qiniu.min.js',
             'src/front/boot.js'
         ],
-        dest: '../horn-www/dst/horn.front.js'
+        dest: 'dst/horn.front.js'
       }
     },
     uglify: {
@@ -50,12 +54,12 @@ module.exports = function (grunt) {
         preserveComments: 'some'
       },
       chat: {
-        src: '../horn-www/dst/horn.js',
-        dest: '../horn-www/dst/horn.min.js'
+        src: 'dst/horn.js',
+        dest: 'dst/horn.min.js'
       },
       front: {
-        src: '../horn-www/dst/horn.front.js',
-        dest: '../horn-www/dst/horn.front.min.js'
+        src: 'dst/horn.front.js',
+        dest: 'dst/horn.front.min.js'
       }
     },
     cssmin: {
@@ -73,7 +77,7 @@ module.exports = function (grunt) {
       main: {
         files: [
           // includes files within path
-          {expand: false, src: ['../horn-www/dst/horn.js'], dest: '../horn-app/public/horn.js', filter: 'isFile'},
+          {expand: false, src: ['dst/horn.js'], dest: '../horn-app/public/horn.js', filter: 'isFile'},
         ],
       },
     },
@@ -94,6 +98,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.registerTask('default', ['concat', 'uglify', 'copy']);
+  grunt.registerTask('default', ['concat', 'uglify']);
   grunt.registerTask('mincss', ['cssmin']);
 }
